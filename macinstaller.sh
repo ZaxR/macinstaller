@@ -40,8 +40,11 @@ brew install zsh zsh-completions
 sudo -s 'echo /usr/local/bin/zsh >> /etc/shells' `#Add to approved shells`
 chsh -s /usr/local/bin/zsh `#Switch default to new bash`
 
-#TODO Add oh-my-zsh and plugins
+#TODO Add oh-my-zsh, theme, plugins
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#ZSH_THEME="agnoster"
+#plugins=(colored-man-pages git pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)
+#install powerline fonts
 
 
 #Python time!
@@ -77,6 +80,7 @@ binaries=(
 
 echo "Installing binaries..."
 brew install ${binaries[@]}
+heroku update
 
 
 #Install homebrew-cask
@@ -99,7 +103,6 @@ apps=(
   github
   google-chrome
   handbrake
-  heroku-toolbelt
   iterm2
   itsycal
   namechanger
@@ -118,6 +121,8 @@ apps=(
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
 
+#TODO make sublime-text the default editor for everything, including git-related
+#TODO set git/github account
 
 #Cleanup
 brew cleanup --force
