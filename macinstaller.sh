@@ -28,12 +28,31 @@ brew install gnu-grep --with-default-names
 brew install findutils
 
 
-#Switch to new Bash
+#Install new Bash
 echo "Installing new Bash…”
-brew install bash `#v4`
-sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells' `#Add to approved shells`
-chsh -s /usr/local/bin/bash `#Switch default to new bash`
-brew install bash-completion
+brew install bash bash-completion `#v4`
+sudo -s 'echo /usr/local/bin/bash >> /etc/shells' `#Add to approved shells`
+
+
+#Switch to Zsh
+echo "Installing zsh…”
+brew install zsh zsh-completions
+sudo -s 'echo /usr/local/bin/zsh >> /etc/shells' `#Add to approved shells`
+chsh -s /usr/local/bin/zsh `#Switch default to new bash`
+
+#TODO Add oh-my-zsh and plugins
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
+#Python time!
+brew install pyenv pyenv-virtualenv
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv
+exec "$SHELL"
+pyenv install 3.6.4
+pyenv install anaconda3-4.2.0
+pyenv install anaconda3-5.0.1
+pyenv global anaconda3-5.0.1
 
 
 #Install other binaries
@@ -48,7 +67,6 @@ binaries=(
   libpng
   pkg-config
   postgresql
-  python3
   redis
   rename
   tmux
@@ -65,13 +83,11 @@ brew install ${binaries[@]}
 echo "Installing homebrew-cask..."
 brew install caskroom/cask/brew-cask
 brew tap caskroom/versions
-brew cleanup
 
 
 #Install apps to /Applications
 apps=(
   alfred `#Need custom iterm script for integration`
-  anaconda
   chromecast
   dash
   disk-inventory-x
@@ -92,7 +108,7 @@ apps=(
   sourcetree
   sublime-text 
   the-unarchiver
-  transmission –or-  utorrent –or- qBittorrent
+  utorrent
   virtualbox
   vagrant
   vlc
