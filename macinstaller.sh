@@ -83,13 +83,6 @@ brew install ${binaries[@]}
 heroku update
 
 
-#Set default text editor, git name, and github username/password
-alias git=hub
-git config --global core.editor "subl -n -w"
-git config --global user.name "Zax"
-git config --global credential.helper osxkeychain
-
-
 #Install homebrew-cask
 echo "Installing homebrew-cask..."
 brew install caskroom/cask/brew-cask
@@ -126,6 +119,14 @@ apps=(
 
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
+
+
+#Set default text editor, git name, and github username/password
+alias git=hub
+git config --global core.editor "subl -n -w"
+git config --global user.name "Zax"
+git config --global credential.helper osxkeychain
+
 
 #Install Google SDK, update path, enable zsh completion
 brew cask install --appdir="/Applications" google-cloud-sdk
