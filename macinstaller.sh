@@ -43,7 +43,7 @@ chsh -s /usr/local/bin/zsh `#Switch default to new bash`
 #TODO Add oh-my-zsh, theme, plugins
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #ZSH_THEME="agnoster"
-#plugins=(colored-man-pages git pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)
+#plugins=(colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)
 #install powerline fonts
 
 
@@ -65,7 +65,7 @@ binaries=(
   git
   graphviz
   heroku-toolbelt
-  hub
+  hub `#cli wrapper for git from github that adds github operations`
   imagemagick
   libpng
   pkg-config
@@ -81,6 +81,13 @@ binaries=(
 echo "Installing binaries..."
 brew install ${binaries[@]}
 heroku update
+
+
+#Set default text editor, git name, and github username/password
+alias git=hub
+git config --global core.editor "subl -n -w"
+git config --global user.name "Zax"
+git config --global credential.helper osxkeychain
 
 
 #Install homebrew-cask
@@ -100,7 +107,7 @@ apps=(
   flash-player
   flux
   gimp
-  github
+  gitkraken
   google-chrome
   handbrake
   iterm2
@@ -108,7 +115,6 @@ apps=(
   namechanger
   pycharm
   slack
-  sourcetree
   sublime-text 
   the-unarchiver
   utorrent
@@ -121,8 +127,11 @@ apps=(
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
 
-#TODO make sublime-text the default editor for everything, including git-related
-#TODO set git/github account
+#Install Google SDK, update path, enable zsh completion
+brew cask install --appdir="/Applications" google-cloud-sdk
+source /Users/zaxr/google-cloud-sdk/path.zsh.inc
+source /Users/zaxr/google-cloud-sdk/completion.zsh.inc
+
 
 #Cleanup
 brew cleanup --force
@@ -179,6 +188,9 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool FALSE
 #Enable debug menu
 defaults write com.apple.appstore ShowDebugMenu -bool true
 
+#Change default text editor to Sublime Text 3
+defaults write com.apple.LaunchServices LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
+
 
 #Finished!
 echo "Done!"
@@ -189,5 +201,4 @@ echo "Done!"
 #Bettersnaptool
 #Amphetamine
 #Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
-#Paid: Tower
 #Paid: Deliveries ($4.99)
