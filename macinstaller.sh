@@ -12,6 +12,8 @@ if test ! $(which brew); then
 fi
 
 brew update
+echo "alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'" >> ~/.bash_profile
+source ~/.bash_profile
 
 
 #Install GNU core utilities (those that come with OS X are outdated)
@@ -39,12 +41,13 @@ echo "Installing zsh…”
 brew install zsh zsh-completions
 sudo -s 'echo /usr/local/bin/zsh >> /etc/shells' `#Add to approved shells`
 chsh -s /usr/local/bin/zsh `#Switch default to new bash`
+echo 'source ~/.bash_profile' >> ~/.zshrc
 
-#TODO Add oh-my-zsh, theme, plugins
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-#ZSH_THEME="agnoster"
-#plugins=(colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)
-#install powerline fonts
+
+#Add oh-my-zsh, theme, plugins, powerline fonts
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+echo "ZSH_THEME='agnoster'" >> ~/.zshrc
+echo "plugins=(colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)" >> ~/.zshrc
 
 
 #Python time!
@@ -56,6 +59,7 @@ pyenv install 3.6.4
 pyenv install anaconda3-4.2.0
 pyenv install anaconda3-5.0.1
 pyenv global anaconda3-5.0.1
+pip install --user git+git://github.com/Lokaltog/powerline --verbose
 
 
 #Install other binaries
@@ -91,7 +95,7 @@ brew tap caskroom/versions
 
 #Install apps to /Applications
 apps=(
-  alfred `#Need custom iterm script for integration`
+  alfred `#Need to manually enter a custom script to integrate in iterm`
   chromecast
   dash
   disk-inventory-x
@@ -108,6 +112,7 @@ apps=(
   namechanger
   pycharm
   slack
+  spectacle
   sublime-text 
   the-unarchiver
   utorrent
@@ -122,7 +127,7 @@ brew cask install --appdir="/Applications" ${apps[@]}
 
 
 #Set default text editor, git name, and github username/password
-alias git=hub
+echo "alias git=hub" >> ~/.zshrc
 git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
 git config --global credential.helper osxkeychain
@@ -172,6 +177,10 @@ killall Finder
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 killall Finder
 
+#Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+killall Finder
+
 #Show file extensions in Finder
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 killall Finder
@@ -199,7 +208,6 @@ echo "Done!"
 
 #Manual Installs
 #Docker for Mac
-#Bettersnaptool
 #Amphetamine
 #Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
 #Paid: Deliveries ($4.99)
