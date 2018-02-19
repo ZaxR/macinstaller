@@ -135,8 +135,8 @@ git config --global credential.helper osxkeychain
 
 #Install Google SDK, update path, enable zsh completion
 brew cask install --appdir="/Applications" google-cloud-sdk
-source /Users/zaxr/google-cloud-sdk/path.zsh.inc
-source /Users/zaxr/google-cloud-sdk/completion.zsh.inc
+source /Users/zrosenberg/google-cloud-sdk/path.zsh.inc
+source /Users/zrosenberg/google-cloud-sdk/completion.zsh.inc
 
 
 #Cleanup
@@ -151,15 +151,15 @@ brew cask alfred link
 #Set up OS tweaks
 echo "Tweaking OS settings…"
 
-#Enable right click; not sure which ones work right
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+#Enable right click; not sure which ones work right; currently done manually
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
-sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 #Show hidden programs by default. Allows using Command+H to hide, and Command+Tab switching
 defaults write com.apple.Dock showhidden -bool TRUE
