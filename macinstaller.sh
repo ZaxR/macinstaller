@@ -17,7 +17,7 @@ source ~/.bash_profile
 
 
 #Install GNU core utilities (those that come with OS X are outdated)
-echo "Installing GNU core utilities…”
+echo "Installing GNU core utilities…"
 brew tap homebrew/dupes
 brew install coreutils
 brew install gnu-sed --with-default-names
@@ -26,20 +26,17 @@ brew install gnu-indent --with-default-names
 brew install gnu-which --with-default-names
 brew install gnu-grep --with-default-names
 
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew install findutils
-
 
 #Install new Bash
-echo "Installing new Bash…”
-brew install bash bash-completion `#v4`
-sudo -s 'echo /usr/local/bin/bash >> /etc/shells' `#Add to approved shells`
+echo "Installing new Bash…"
+brew install bash bash-completion
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 
 
 #Switch to Zsh
-echo "Installing zsh…”
+echo "Installing zsh…"
 brew install zsh zsh-completions
-sudo -s 'echo /usr/local/bin/zsh >> /etc/shells' `#Add to approved shells`
+sudo -s 'echo /usr/local/bin/zsh >> /etc/shells'
 chsh -s /usr/local/bin/zsh `#Switch default to new bash`
 echo 'source ~/.bash_profile' >> ~/.zshrc
 
@@ -47,19 +44,7 @@ echo 'source ~/.bash_profile' >> ~/.zshrc
 #Add oh-my-zsh, theme, plugins, powerline fonts
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "ZSH_THEME='agnoster'" >> ~/.zshrc
-echo "plugins=(colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting)" >> ~/.zshrc
-
-
-#Python time!
-brew install pyenv pyenv-virtualenv
-echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshenv
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv
-exec "$SHELL"
-pyenv install 3.6.4
-pyenv install anaconda3-4.2.0
-pyenv install anaconda3-5.0.1
-pyenv global anaconda3-5.0.1
-pip install --user git+git://github.com/Lokaltog/powerline --verbose
+echo "plugins=colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting" >> ~/.zshrc
 
 
 #Install other binaries
@@ -74,6 +59,7 @@ binaries=(
   libpng
   pkg-config
   postgresql
+  python3
   redis
   rename
   tmux
@@ -87,16 +73,10 @@ brew install ${binaries[@]}
 heroku update
 
 
-#Install homebrew-cask
-echo "Installing homebrew-cask..."
-brew install caskroom/cask/brew-cask
-brew tap caskroom/versions
-
-
 #Install apps to /Applications
 apps=(
-  alfred `#Need to manually enter a custom script to integrate in iterm`
-  chromecast
+  alfred
+  caffeine
   dash
   disk-inventory-x
   dropbox
@@ -109,19 +89,19 @@ apps=(
   handbrake
   iterm2
   itsycal
+  mkchromecast
   namechanger
-  pycharm
+  pycharm-ce
   slack
   spectacle
   sublime-text 
   the-unarchiver
-  utorrent
   virtualbox
   vagrant
   vlc
-  wunderlist
 )
 
+brew tap caskroom/versions
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
 
@@ -135,17 +115,13 @@ git config --global credential.helper osxkeychain
 
 #Install Google SDK, update path, enable zsh completion
 brew cask install --appdir="/Applications" google-cloud-sdk
-source /Users/zrosenberg/google-cloud-sdk/path.zsh.inc
-source /Users/zrosenberg/google-cloud-sdk/completion.zsh.inc
+source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 
 #Cleanup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
-
-
-#Link Cask Apps to Alfred
-brew cask alfred link
 
 
 #Set up OS tweaks
@@ -207,7 +183,5 @@ echo "Done!"
 
 
 #Manual Installs
-#Docker for Mac
-#Amphetamine
+#Docker for Mac  
 #Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
-#Paid: Deliveries ($4.99)
