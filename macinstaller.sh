@@ -132,10 +132,11 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-#Enable tap to click; logging out and back in is required to take effect
-sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+##Enabling tap to click via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
+##Enable tap to click; logging out and back in is required to take effect
+#sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+#sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 #Show hidden programs by default. Allows using Command+H to hide, and Command+Tab switching
 defaults write com.apple.Dock showhidden -bool TRUE
@@ -175,6 +176,7 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool FALSE
 defaults write com.apple.appstore ShowDebugMenu -bool true
 
 #Change default text editor to Sublime Text 3
+#If this command doesn't work, see http://ultimatemac.com/how-to-change-default-text-editor-on-mac/ for manual instructions
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add \
 '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
