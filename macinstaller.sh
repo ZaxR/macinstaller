@@ -54,7 +54,6 @@ binaries=(
   git
   graphviz
   heroku-toolbelt
-  hub `#cli wrapper for git from github that adds github operations`
   imagemagick
   libpng
   pkg-config
@@ -91,7 +90,6 @@ apps=(
   itsycal
   mkchromecast
   namechanger
-  pycharm-ce
   slack
   spectacle
   sublime-text 
@@ -107,7 +105,6 @@ brew cask install --appdir="/Applications" ${apps[@]}
 
 
 #Set default text editor, git name, and github username/password
-echo "alias git=hub" >> ~/.zshrc
 git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
 git config --global credential.helper osxkeychain
@@ -127,15 +124,18 @@ rm -f -r /Library/Caches/Homebrew/*
 #Set up OS tweaks
 echo "Tweaking OS settings…"
 
-#Enable right click; not sure which ones work right; currently done manually
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+#Enable right click; logging out and back in is required to take effect
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-# sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-# sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-# sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#Enable tap to click; logging out and back in is required to take effect
+sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 #Show hidden programs by default. Allows using Command+H to hide, and Command+Tab switching
 defaults write com.apple.Dock showhidden -bool TRUE
@@ -175,13 +175,14 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool FALSE
 defaults write com.apple.appstore ShowDebugMenu -bool true
 
 #Change default text editor to Sublime Text 3
-defaults write com.apple.LaunchServices LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
-
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add \
+'{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
 #Finished!
 echo "Done!"
 
 
 #Manual Installs
+#Pycharm CE or Pro
 #Docker for Mac  
 #Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
