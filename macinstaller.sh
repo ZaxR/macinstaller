@@ -2,10 +2,11 @@
 
 #Begin by installing xcode from the appstore
 #Check if xcode is installed with xcode-select –p
-#Install Command Line Tools
+#Install Command Line Tools via xcode
 
 
 #Install Homebrew, if not already installed
+echo "Installing Homebrew…"
 if test ! $(which brew); then
   echo "Installing homebrew"
   ruby -e "$(curl -fsSl https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -33,18 +34,24 @@ brew install bash bash-completion
 sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 
 
-#Switch to Zsh
+#Install and switch to Zsh
 echo "Installing zsh…"
-brew install zsh zsh-completions
+brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
 sudo -s 'echo /usr/local/bin/zsh >> /etc/shells'
 chsh -s /usr/local/bin/zsh `#Switch default to new bash`
-echo 'source ~/.bash_profile' >> ~/.zshrc
 
+#Add basic zsh configuration
+echo "Configuring zsh…"
+echo 'source ~/.bash_profile' >> ~/.zshrc
+echo "export DEFAULT_USER=\`whoami\`" >> ~/.zshrc
+echo "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 #Add oh-my-zsh, theme, plugins, powerline fonts
+echo "Installing and configuring oh-my-zsh…"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "ZSH_THEME='agnoster'" >> ~/.zshrc
-echo "plugins=colored-man-pages git gitfast pyenv python sublime zsh-autosuggestions zsh-syntax-highlighting" >> ~/.zshrc
+echo "plugins=colored-man-pages git python sublime" >> ~/.zshrc
 
 
 #Install other binaries
@@ -104,19 +111,22 @@ echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
 
 
-#Set default text editor, git name, and github username/password
+#Set git's default text editor, name, and credential helper
+echo "Configuring git..."
 git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
 git config --global credential.helper osxkeychain
 
 
 #Install Google SDK, update path, enable zsh completion
+echo "Installing Google SDK…"
 brew cask install --appdir="/Applications" google-cloud-sdk
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 
 #Cleanup
+echo "Cleaning up…"
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
 
@@ -181,10 +191,11 @@ defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandle
 '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
 #Finished!
-echo "Done!"
+echo "Done! Don't forget to make manual changes noted at the end of the installer script."
 
 
-#Manual Installs
-#Pycharm CE or Pro
-#Docker for Mac  
-#Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
+#Manual Installs/Steps
+#Install Pycharm CE or Pro
+#Install Docker for Mac  
+#Install Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
+#Configure iTerm font, colors, and other settings
