@@ -142,12 +142,6 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-##Enabling tap to click via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
-##Enable tap to click; logging out and back in is required to take effect
-#sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-#sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-#sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
 #Show hidden programs by default. Allows using Command+H to hide, and Command+Tab switching
 defaults write com.apple.Dock showhidden -bool TRUE
 killall Dock
@@ -198,4 +192,20 @@ echo "Done! Don't forget to make manual changes noted at the end of the installe
 #Install Pycharm CE or Pro
 #Install Docker for Mac  
 #Install Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
-#Configure iTerm font, colors, and other settings
+
+##Enabling 'tap to click' via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
+##Enable tap to click; logging out and back in is required to take effect
+#sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+#sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+#Configure iTerm settings
+  #Manually configure iTerm for word jumps (option + → or ←) and word deletion (option + backspace). 
+    #iTerm > Preferences > Profiles > Keys > Load Preset... > select 'Natural Text Editing'
+  #Colors
+    #iTerm > Preferences > Profiles > Colors > Color Presets... > select 'Solarized Dark'
+  #Install a patched font
+    #Download Meslo by clicking 'view raw' at https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf .
+    #Open the downloaded font and press "Install Font".
+    #iTerm > Preferences > Profiles > Text > Change Font > select '13pt Meslo LG L Regular for Powerline'
+    #Restrat iTerm2
