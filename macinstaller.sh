@@ -43,8 +43,8 @@ chsh -s /usr/local/bin/zsh `#Switch default shell to zsh`
 #Add oh-my-zsh, theme, plugins, powerline fonts
 echo "Installing and configuring oh-my-zsh…"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-echo "ZSH_THEME='agnoster'" >> ~/.zshrc
-echo "plugins=colored-man-pages git python sublime" >> ~/.zshrc
+sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+sed -i -e 's/  git/  colored-man-pages\n  git\n  python\n  sublime/g' ~/.zshrc
 
 #Add basic zsh configuration
 echo "Configuring zsh…"
