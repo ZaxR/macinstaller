@@ -38,20 +38,20 @@ sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 echo "Installing zsh…"
 brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
 sudo -s 'echo /usr/local/bin/zsh >> /etc/shells'
-chsh -s /usr/local/bin/zsh `#Switch default to new bash`
-
-#Add basic zsh configuration
-echo "Configuring zsh…"
-echo 'source ~/.bash_profile' >> ~/.zshrc
-echo "export DEFAULT_USER=\`whoami\`" >> ~/.zshrc
-echo "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
-echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+chsh -s /usr/local/bin/zsh `#Switch default shell to zsh`
 
 #Add oh-my-zsh, theme, plugins, powerline fonts
 echo "Installing and configuring oh-my-zsh…"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "ZSH_THEME='agnoster'" >> ~/.zshrc
 echo "plugins=colored-man-pages git python sublime" >> ~/.zshrc
+
+#Add basic zsh configuration
+echo "Configuring zsh…"
+echo -e 'source ~/.bash_profile\n' | cat - ~/.zshrc > temp && mv temp ~/.zshrc
+echo "export DEFAULT_USER=\`whoami\`" >> ~/.zshrc
+echo "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 
 #Install other binaries
