@@ -1,20 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-#Begin by installing xcode from the appstore
-#Check if xcode is installed with xcode-select –p
-#Install Command Line Tools via xcode
+#Begin by installing Xcode from the App Store
+#Check if Xcode is installed with xcode-select –p
+#Install Command Line Tools via Xcode
 
 
 #Install Homebrew, if not already installed
-echo "Installing Homebrew…"
-if test ! $(which brew); then
-  echo "Installing homebrew"
-  ruby -e "$(curl -fsSl https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-brew update
 echo "alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'" >> ~/.bash_profile
 source ~/.bash_profile
+
+if [ ! $(which brew) ]; then
+  echo "Installing Homebrew…"
+  ruby -e "$(curl -fsSl https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew update
+else
+  echo "Updating and cleaning Homebrew…"
+  brewup
+fi
 
 
 #Install GNU core utilities (those that come with OS X are outdated)
@@ -35,10 +37,10 @@ sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 
 
 #Install and switch to Zsh
-echo "Installing zsh…"
+echo "Installing Zsh…"
 brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
 sudo -s 'echo /usr/local/bin/zsh >> /etc/shells'
-chsh -s /usr/local/bin/zsh `#Switch default shell to zsh`
+chsh -s /usr/local/bin/zsh #Switch default shell to Zsh
 
 #Add oh-my-zsh, theme, plugins, powerline fonts
 echo "Installing and configuring oh-my-zsh…"
@@ -46,8 +48,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
 sed -i -e 's/  git/  colored-man-pages\n  git\n  python\n  sublime/g' ~/.zshrc
 
-#Add basic zsh configuration
-echo "Configuring zsh…"
+#Add basic Zsh configuration
+echo "Configuring Zsh…"
 echo -e 'source ~/.bash_profile\n' | cat - ~/.zshrc > temp && mv temp ~/.zshrc
 echo "export DEFAULT_USER=\`whoami\`" >> ~/.zshrc
 echo "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
@@ -111,22 +113,23 @@ echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" ${apps[@]}
 
 
-#Set git's default text editor, name, and credential helper
-echo "Configuring git..."
+#Set Git's default text editor, name, and credential helper
+echo "Configuring Git…"
 git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
 git config --global credential.helper osxkeychain
 
 
-#Install Google SDK, update path, enable zsh completion
+#Install Google SDK, update PATH, enable Zsh completion
 echo "Installing Google SDK…"
 brew cask install --appdir="/Applications" google-cloud-sdk
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 
-#Cleanup
+#Clean up after Homebrew
 echo "Cleaning up…"
+brewup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
 
@@ -142,7 +145,7 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-#Show hidden programs by default. Allows using Command+H to hide, and Command+Tab switching
+#Show hidden programs by default. Allows using ⌘+H to hide, and ⌘+Tab switching
 defaults write com.apple.Dock showhidden -bool TRUE
 killall Dock
 
@@ -184,6 +187,7 @@ defaults write com.apple.appstore ShowDebugMenu -bool true
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add \
 '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}'
 
+
 #Finished!
 echo "Done! Don't forget to make manual changes noted at the end of the installer script."
 
@@ -191,7 +195,7 @@ echo "Done! Don't forget to make manual changes noted at the end of the installe
 #Manual Installs/Steps
 #Install Pycharm CE or Pro
 #Install Docker for Mac  
-#Install Flycut clipboard `#Alfred has this, but you need to buy the powerpack for $19`
+#Install Flycut clipboard - Alfred has this, but you need to buy the powerpack for $19
 
 ##Enabling 'tap to click' via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
 ##Enable tap to click; logging out and back in is required to take effect
