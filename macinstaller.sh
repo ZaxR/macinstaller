@@ -82,35 +82,32 @@ heroku update
 
 
 #Install apps to /Applications
-apps=(
-  alfred
-  caffeine
-  dash
-  disk-inventory-x
-  dropbox
-  firefox
-  flash-player
-  flux
-  gimp
-  gitkraken
-  google-chrome
-  handbrake
-  iterm2
-  itsycal
-  mkchromecast
-  namechanger
-  slack
-  spectacle
-  sublime-text 
-  the-unarchiver
-  virtualbox
-  vagrant
-  vlc
-)
-
+#Each has its own command to prevent errors in remaining installed if a piece of software is already installed (a cask design decision).
 brew tap caskroom/versions
 echo "Installing apps to /Applications…"
-brew cask install --appdir="/Applications" ${apps[@]}
+brew cask install --appdir="/Applications" alfred
+brew cask install --appdir="/Applications" caffeine
+brew cask install --appdir="/Applications" dash
+brew cask install --appdir="/Applications" disk-inventory-x
+brew cask install --appdir="/Applications" dropbox
+brew cask install --appdir="/Applications" firefox
+brew cask install --appdir="/Applications" flash-player
+brew cask install --appdir="/Applications" flux
+brew cask install --appdir="/Applications" gimp
+brew cask install --appdir="/Applications" gitkraken
+brew cask install --appdir="/Applications" google-chrome
+brew cask install --appdir="/Applications" handbrake
+brew cask install --appdir="/Applications" iterm2
+brew cask install --appdir="/Applications" itsycal
+brew cask install --appdir="/Applications" mkchromecast
+brew cask install --appdir="/Applications" namechanger
+brew cask install --appdir="/Applications" slack
+brew cask install --appdir="/Applications" spectacle
+brew cask install --appdir="/Applications" sublime-text 
+brew cask install --appdir="/Applications" the-unarchiver
+brew cask install --appdir="/Applications" virtualbox
+brew cask install --appdir="/Applications" vagrant
+brew cask install --appdir="/Applications" vlc
 
 
 #Set Git's default text editor, name, and credential helper
