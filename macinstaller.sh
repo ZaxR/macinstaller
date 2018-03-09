@@ -39,7 +39,7 @@ sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 #Install and switch to Zsh
 echo "Installing Zsh…"
 brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting
-sudo -s 'echo /usr/local/bin/zsh >> /etc/shells'
+sudo bash -c 'echo /usr/local/bin/zsh >> /etc/shells'
 chsh -s /usr/local/bin/zsh #Switch default shell to Zsh
 
 #Add oh-my-zsh, theme, plugins, powerline fonts
