@@ -56,6 +56,18 @@ echo "source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/
 echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
 
+#Python time!
+#Install https://github.com/momo-lab/pyenv-install-latest to be able to use "pyenv install-latest".
+brew install pyenv pyenv-virtualenv
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshenv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv
+exec "$SHELL"
+pyenv install 3.6.4
+pyenv install anaconda3-4.2.0
+pyenv install anaconda3-5.0.1
+pyenv global anaconda3-5.0.1
+
+
 #Install other binaries
 binaries=(
   ack `#like grep, but optimized for programmers`
@@ -67,7 +79,6 @@ binaries=(
   libpng
   pkg-config
   postgresql
-  python3
   redis
   rename
   tmux
@@ -87,6 +98,7 @@ brew tap caskroom/versions
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" alfred
 brew cask install --appdir="/Applications" caffeine
+brew cask install --appdir="/Applications" cyberduck
 brew cask install --appdir="/Applications" dash
 brew cask install --appdir="/Applications" disk-inventory-x
 brew cask install --appdir="/Applications" dropbox
