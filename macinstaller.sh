@@ -132,9 +132,19 @@ git config --global credential.helper osxkeychain
 #Install Google SDK, update PATH, enable Zsh completion
 echo "Installing Google SDK…"
 brew cask install --appdir="/Applications" google-cloud-sdk
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+echo "# The next line updates PATH for the Google Cloud SDK." >> ~/.zshrc
+echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi" >> ~/.zshrc
+echo "# The next line enables shell command completion for gcloud." >> ~/.zshrc
+echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi" >> ~/.zshrc
 
+# #Fix gcloud/docker integration
+# gcloud components install docker-credential-gcr
+# #EXIT TERMINAL COMPLETELY AND REOPEN
+# docker-credential-gcr configure-docker
+# screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+# umount /var/lib/docker/overlay2
+# rm -rf /var/lib/docker
+# #EXIT TERMINAL COMPLETELY AND REOPEN
 
 #Clean up after Homebrew
 echo "Cleaning up…"
