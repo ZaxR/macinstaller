@@ -57,15 +57,16 @@ echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 
 #Python time!
-#Install https://github.com/momo-lab/pyenv-install-latest to be able to use "pyenv install-latest".
 brew install pyenv pyenv-virtualenv
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshenv
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv
+echo -e 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshenv
 exec "$SHELL"
-pyenv install 3.6.4
-pyenv install anaconda3-4.2.0
-pyenv install anaconda3-5.0.1
-pyenv global anaconda3-5.0.1
+
+#Type 'pyenv install -l' to see a list of available versions for install
+#Installing the plugin below creates the ability to also use "pyenv install-latest".
+git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
+pyenv install-latest
+# pyenv global x.x.x to set the global version of python.
 
 
 #Install other binaries
