@@ -58,8 +58,8 @@ echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 #Python time!
 brew install pyenv pyenv-virtualenv
-echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshenv
-echo -e 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshenv
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+echo -e 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshrc
 exec "$SHELL"
 
 #Type 'pyenv install -l' to see a list of available versions for install
