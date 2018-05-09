@@ -68,6 +68,11 @@ git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/p
 pyenv install-latest
 # pyenv global x.x.x to set the global version of python.
 
+#Create iPython profile to work w/ pyenv-virtualenv
+#https://medium.com/@henriquebastos/the-definitive-guide-to-setup-my-python-workspace-628d68552e14
+#ipython profile create
+#curl -L http://hbn.link/hb-ipython-startup-script > ~/.ipython/profile_default/startup/00-venv-sitepackages.py
+
 
 #Install other binaries
 binaries=(
