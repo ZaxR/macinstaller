@@ -81,6 +81,7 @@ binaries=(
   graphviz
   heroku-toolbelt
   imagemagick
+  jq `#lightweight command-line JSON processor`
   libpng
   pkg-config
   postgresql
