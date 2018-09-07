@@ -142,14 +142,10 @@ echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path
 echo "# The next line enables shell command completion for gcloud." >> ~/.zshrc
 echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi" >> ~/.zshrc
 
-# #Fix gcloud/docker integration
-# gcloud components install docker-credential-gcr
-# #EXIT TERMINAL COMPLETELY AND REOPEN
-# docker-credential-gcr configure-docker
-# screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
-# umount /var/lib/docker/overlay2
-# rm -rf /var/lib/docker
-# #EXIT TERMINAL COMPLETELY AND REOPEN
+gcloud components install docker-credential-gcr
+gcloud components install docker-beta
+exec "$SHELL"
+docker-credential-gcr configure-docker
 
 #Clean up after Homebrew
 echo "Cleaning up…"
