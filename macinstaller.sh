@@ -115,7 +115,6 @@ brew cask install --appdir="/Applications" gitkraken
 brew cask install --appdir="/Applications" google-chrome
 brew cask install --appdir="/Applications" handbrake
 brew cask install --appdir="/Applications" iterm2
-brew cask install --appdir="/Applications" itsycal
 brew cask install --appdir="/Applications" mkchromecast
 brew cask install --appdir="/Applications" namechanger
 brew cask install --appdir="/Applications" slack
@@ -217,9 +216,8 @@ echo "Done! Don't forget to make manual changes noted at the end of the installe
 
 
 #Manual Installs/Steps
-#Install Pycharm CE or Pro
-#Install Docker for Mac  
-#Install Flycut clipboard - Alfred has this, but you need to buy the powerpack for $19
+#Install Docker for Mac from https://download.docker.com/mac/stable/Docker.dmg . This avoiding having to login to download.
+#Install Itsycal from https://www.mowglii.com/itsycal/ . As of OS 10.12 this must be done manually.
 
 ##Enabling 'tap to click' via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
 ##Enable tap to click; logging out and back in is required to take effect
