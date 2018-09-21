@@ -118,6 +118,7 @@ brew cask install --appdir="/Applications" handbrake
 brew cask install --appdir="/Applications" iterm2
 brew cask install --appdir="/Applications" mkchromecast
 brew cask install --appdir="/Applications" namechanger
+brew cask install --appdir="/Applications" signal
 brew cask install --appdir="/Applications" slack
 brew cask install --appdir="/Applications" spectacle
 brew cask install --appdir="/Applications" sublime-text 
