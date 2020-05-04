@@ -100,6 +100,9 @@ heroku update
 
 #Install apps to /Applications
 #Each has its own command to prevent errors in remaining installed if a piece of software is already installed (a cask design decision).
+#To update all casks, use brew cask upgrade [--greedy]. The greedy flag is needed for sublime and others
+#To update a single cask, use brew cask reinstall --appdir="/Applications" <name>
+#If there's an issue with multiple avail casks, first brew untap as meceesary (e.g. brew untap caskroom/versions)
 brew tap caskroom/versions
 echo "Installing apps to /Applications…"
 brew cask install --appdir="/Applications" alfred
