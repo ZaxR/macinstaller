@@ -6,7 +6,8 @@
 
 
 #Install Homebrew, if not already installed
-echo "alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'" >> ~/.bash_profile
+#May need to run `pyenv rehash` after brewup if shims are broken
+echo "alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'" >> ~/.bash_profile
 source ~/.bash_profile
 
 if [ ! $(which brew) ]; then
@@ -109,16 +110,17 @@ brew cask install --appdir="/Applications" alfred
 brew cask install --appdir="/Applications" caffeine
 brew cask install --appdir="/Applications" cyberduck
 brew cask install --appdir="/Applications" dash
+brew cask install --appdir="/Applications" dbeaver-community
 brew cask install --appdir="/Applications" disk-inventory-x
 brew cask install --appdir="/Applications" dropbox
 brew cask install --appdir="/Applications" firefox
 brew cask install --appdir="/Applications" flash-player
 brew cask install --appdir="/Applications" flux
 brew cask install --appdir="/Applications" gimp
-brew cask install --appdir="/Applications" gitkraken
 brew cask install --appdir="/Applications" google-chrome
 brew cask install --appdir="/Applications" handbrake
 brew cask install --appdir="/Applications" iterm2
+brew cask install --appdir="/Applications" lens
 brew cask install --appdir="/Applications" mkchromecast
 brew cask install --appdir="/Applications" namechanger
 brew cask install --appdir="/Applications" signal
@@ -146,9 +148,12 @@ echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path
 echo "# The next line enables shell command completion for gcloud." >> ~/.zshrc
 echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi" >> ~/.zshrc
 
-gcloud components install docker-credential-gcr
-gcloud components install docker-beta
+#gcloud components list to see what's available
+echo Y | gcloud components install bq core docker-credential-gcr gsutil alpha beta
+#k8s only
+echo Y | gcloud components install kustomize kubectl 
 exec "$SHELL"
+# configure docker client to use docker-credential-gcr
 docker-credential-gcr configure-docker
 
 #Clean up after Homebrew
