@@ -23,11 +23,19 @@ fi
 #Install GNU core utilities (those that come with OS X are outdated)
 echo "Installing GNU core utilities…"
 brew install coreutils
-brew install gnu-sed --with-default-names
-brew install gnu-tar --with-default-names
-brew install gnu-indent --with-default-names
-brew install gnu-which --with-default-names
-brew install gnu-grep --with-default-names
+brew install gnu-sed
+brew install gnu-tar
+brew install gnu-indent
+brew install gnu-which
+brew install gnu-grep
+
+#Setting GNU utilities as defaults
+echo "Setting default names for GNU core utilities…"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-grep/libexec/gnubin:$PATH"
 
 
 #Install new Bash
@@ -60,7 +68,8 @@ echo "source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 brew install pyenv pyenv-virtualenv
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
 echo -e 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi' >> ~/.zshrc
-exec "$SHELL"
+
+#exec "$SHELL"
 
 #Type 'pyenv install -l' to see a list of available versions for install
 #Installing the plugin below creates the ability to also use "pyenv install-latest".
@@ -80,7 +89,6 @@ binaries=(
   freetype
   git
   graphviz
-  heroku-toolbelt
   imagemagick
   jq `#lightweight command-line JSON processor`
   libpng
@@ -96,7 +104,6 @@ binaries=(
 
 echo "Installing binaries..."
 brew install ${binaries[@]}
-heroku update
 
 
 #Install apps to /Applications
@@ -106,9 +113,7 @@ heroku update
 #If there's an issue with multiple avail casks, first brew untap as meceesary (e.g. brew untap caskroom/versions)
 brew tap caskroom/versions
 echo "Installing apps to /Applications…"
-brew cask install --appdir="/Applications" alfred
 brew cask install --appdir="/Applications" caffeine
-brew cask install --appdir="/Applications" cyberduck
 brew cask install --appdir="/Applications" dash
 brew cask install --appdir="/Applications" dbeaver-community
 brew cask install --appdir="/Applications" disk-inventory-x
@@ -116,9 +121,7 @@ brew cask install --appdir="/Applications" dropbox
 brew cask install --appdir="/Applications" firefox
 brew cask install --appdir="/Applications" flash-player
 brew cask install --appdir="/Applications" flux
-brew cask install --appdir="/Applications" gimp
 brew cask install --appdir="/Applications" google-chrome
-brew cask install --appdir="/Applications" handbrake
 brew cask install --appdir="/Applications" iterm2
 brew cask install --appdir="/Applications" lens
 brew cask install --appdir="/Applications" mkchromecast
@@ -137,6 +140,7 @@ brew cask install --appdir="/Applications" vlc
 echo "Configuring Git…"
 git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
+git config --global user.email "zaxr@protonmail.com"
 git config --global credential.helper osxkeychain
 
 
@@ -150,10 +154,22 @@ echo "if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/comp
 
 #gcloud components list to see what's available
 echo Y | gcloud components install bq core docker-credential-gcr gsutil alpha beta
+
 #k8s only
 echo Y | gcloud components install kustomize kubectl 
-exec "$SHELL"
-# configure docker client to use docker-credential-gcr
+
+# exec "$SHELL"
+
+#Install Docker
+wget -O ~/Downloads/Docker.dmg "https://download.docker.com/mac/stable/Docker.dmg"
+sudo hdiutil attach ~/Downloads/Docker.dmg
+cd /Volumes/Docker
+sudo cp -rf Docker.app /Applications
+sudo hdiutil detach /Volumes/Docker -force
+cd
+
+#Configure docker client to use docker-credential-gcr
+open -a Docker
 docker-credential-gcr configure-docker
 
 #Clean up after Homebrew
@@ -222,7 +238,6 @@ echo "Done! Don't forget to make manual changes noted at the end of the installe
 
 
 #Manual Installs/Steps
-#Install Docker for Mac from https://download.docker.com/mac/stable/Docker.dmg . This avoiding having to login to download.
 #Install Itsycal from https://www.mowglii.com/itsycal/ . As of OS 10.12 this must be done manually.
 
 ##Enabling 'tap to click' via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
