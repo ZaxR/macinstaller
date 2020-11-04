@@ -131,9 +131,10 @@ brew cask install --appdir="/Applications" slack
 brew cask install --appdir="/Applications" spectacle
 brew cask install --appdir="/Applications" sublime-text 
 brew cask install --appdir="/Applications" the-unarchiver
-brew cask install --appdir="/Applications" virtualbox
 brew cask install --appdir="/Applications" vagrant
+brew cask install --appdir="/Applications" virtualbox
 brew cask install --appdir="/Applications" vlc
+brew cask install --appdir="/Applications" visual-studio-code
 
 
 #Set Git's default text editor, name, and credential helper
@@ -142,7 +143,6 @@ git config --global core.editor "subl -n -w"
 git config --global user.name "Zax"
 git config --global user.email "zaxr@protonmail.com"
 git config --global credential.helper osxkeychain
-
 
 #Install Google SDK, update PATH, enable Zsh completion
 echo "Installing Google SDK…"
@@ -175,8 +175,7 @@ docker-credential-gcr configure-docker
 #Clean up after Homebrew
 echo "Cleaning up…"
 brewup
-brew cleanup --force
-rm -f -r /Library/Caches/Homebrew/*
+brew cleanup --prune=1
 
 
 #Set up OS tweaks
@@ -238,6 +237,9 @@ echo "Done! Don't forget to make manual changes noted at the end of the installe
 
 
 #Manual Installs/Steps
+# Flip command and option modifier keys in settings
+# System Preferences > Keyboard > Modifier Keys
+
 #Install Itsycal from https://www.mowglii.com/itsycal/ . As of OS 10.12 this must be done manually.
 
 ##Enabling 'tap to click' via CLI no longer works since Sierra. Manually configure via System Preferences > Trackpad
